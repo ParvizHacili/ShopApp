@@ -38,11 +38,8 @@ namespace ShopApp.WebUI.Controllers
                 new Product{Name="Iphone 11",Price=978568,Description="Good",IsApproved=true},
             };
 
-            var category = new Category { Name = "Telefonlar", Description = "Telefon Categorsi" };
-
             var productViewModel = new ProductViewModel()
             {
-                Category = category,
                 Products = products
             };
 
