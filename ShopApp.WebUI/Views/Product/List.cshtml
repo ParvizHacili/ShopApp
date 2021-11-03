@@ -1,37 +1,29 @@
-﻿@using ShopApp.WebUI.Models
-@model ShopApp.WebUI.ViewModels.ProductViewModel
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@model ShopApp.WebUI.ViewModels.ProductViewModel
 
-@{ 
-    Layout = "_Layout2";
-}
 
 @{
     var popularClass = Model.Products.Count > 2 ? "popular" : "";
     var products = Model.Products;
 }
 
-<div class="row">
-    <div class="col-md-3">
-        @*Categories*@
-        @await Component.InvokeAsync("Categories")
-    </div>
-    <div class="col-md-9">
-        @*Products*@
-        @if (products.Count == 0)
+@section Categories
+{
+    @await Component.InvokeAsync("Categories")
+}
+
+
+@if (products.Count == 0)
+{
+    @await Html.PartialAsync("_noProduct")
+}
+else
+{
+    <div class="row">
+        @foreach (var product in products)
         {
-            @await Html.PartialAsync("_noProduct")
-        }
-        else
-        {
-            <div class="row">
-                @foreach (var product in products)
-                {
-                    <div class="col-md-3">
-                        @await Html.PartialAsync("_product", product)
-                    </div>
-                }
+            <div class="col-md-3">
+                @await Html.PartialAsync("_product", product)
             </div>
         }
     </div>
-</div>
+}
