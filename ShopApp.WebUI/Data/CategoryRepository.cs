@@ -16,7 +16,8 @@ namespace ShopApp.WebUI.Data
             {
                 new Category {CategoryId=1, Name = "Telefon", Description = "Telefon Kateqoriyasi" },
                 new Category {CategoryId=2,Name = "Kompyuter", Description = "Kompyuter Kateqoriyasi" },
-                new Category {CategoryId=3,Name = "Elektronika", Description = "Elektronika Kateqoriyasi" }
+                new Category {CategoryId=3,Name = "Elektronika", Description = "Elektronika Kateqoriyasi" },
+                new Category {CategoryId=4,Name = "Kitab", Description = "Kitab Kateqoriyasi" }
             };
         }
 
