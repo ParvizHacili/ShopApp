@@ -1,26 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShopApp.Data.Abstract;
+using ShopApp.Business.Abstract;
 using ShopApp.WebUI.ViewModels;
-using ShopApp.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ShopApp.Business.Abstract;
 
 namespace ShopApp.WebUI.Controllers
 {
-    public class HomeController : Controller
+    public class ShopController : Controller
     {
-        //https://localhost:44318/
-
         private IProductService _productService;
-        public HomeController(IProductService productService)
+        public ShopController(IProductService productService)
         {
             this._productService = productService;
         }
 
-        public IActionResult Index()
+        public IActionResult List()
         {
             var productViewModel = new ProductListViewModel()
             {
@@ -28,17 +24,6 @@ namespace ShopApp.WebUI.Controllers
             };
 
             return View(productViewModel);
-        }
-
-
-        public IActionResult About()
-        {
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            return View("MyView");
         }
     }
 }

@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using ShopApp.Business.Abstract;
+using ShopApp.Business.Concrete;
 using ShopApp.Data.Abstract;
 using ShopApp.Data.Concrete.EfCore;
 using System;
@@ -29,6 +31,12 @@ namespace ShopApp.WebUI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IProductRepository,EfCoreProductRepository>();
+            services.AddScoped<IProductService,ProductManager>();
+
+            services.AddScoped<ICategoryRepository,EfCoreCategoryRepository>();
+            services.AddScoped<ICategoryService,CategoryManager>();
+
+
             services.AddControllersWithViews();
             //services.AddRazorPages();
         }
@@ -73,6 +81,7 @@ namespace ShopApp.WebUI
 
             if (environment.IsDevelopment())
             {
+                SeedDatabase.Seed();
                 app.UseDeveloperExceptionPage();
             }
             app.UseRouting();

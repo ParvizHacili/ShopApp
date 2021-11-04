@@ -1,0 +1,47 @@
+﻿using Microsoft.EntityFrameworkCore;
+using ShopApp.Entity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ShopApp.Data.Concrete.EfCore
+{
+   public static class SeedDatabase
+    {
+        public static void Seed()
+        {
+            var context = new ShopContext();
+            if (context.Database.GetPendingMigrations().Count() == 0)
+            {
+                if (context.Categories.Count() == 0)
+                {
+                    context.Categories.AddRange(Categories);
+                }
+
+                if (context.Products.Count() == 0)
+                {
+                    context.Products.AddRange(Products);
+                }
+            }
+            context.SaveChanges();
+        }
+
+        private static Category[] Categories =
+        {
+            new Category(){Name="Telefon"},
+            new Category(){Name="Kompyuter"},
+            new Category(){Name="Elektronika"}
+        };
+
+        private static Product[] Products =
+       {
+            new Product(){Name="Samsung s5",Price=20,Description="Fine",ImageUrl="2.jpg",IsApproved=true},
+            new Product(){Name="Samsung s6",Price=30,Description="Fine",ImageUrl="3.jpg",IsApproved=false},
+            new Product(){Name="Samsung s7",Price=40,Description="Fine",ImageUrl="4.jpg",IsApproved=true},
+            new Product(){Name="Samsung s8",Price=50,Description="Fine",ImageUrl="5.jpg",IsApproved=false},
+            new Product(){Name="Samsung s9",Price=60,Description="Fine",ImageUrl="1.jpg",IsApproved=true},
+  
+        };
+    }
+}
