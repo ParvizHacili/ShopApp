@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopApp.Business.Abstract;
 using ShopApp.Entity;
+using ShopApp.WebUI.Models;
 using ShopApp.WebUI.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -33,15 +34,19 @@ namespace ShopApp.WebUI.Controllers
             {
                 return NotFound();
             }
-            Product product = _productService.GetByID((int)id);
+            Product product = _productService.GetProductDetails((int)id);
 
             if(product==null)
             {
                 return NotFound();
             }
 
+            return View(new ProductDetailModel
+            {
+                Product = product,
+                Categories = product.ProductCategories.Select(i => i.Category).ToList()
 
-            return View(product);
+            });
         }
     }
 }

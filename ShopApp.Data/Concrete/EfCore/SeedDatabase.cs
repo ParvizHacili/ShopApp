@@ -22,6 +22,7 @@ namespace ShopApp.Data.Concrete.EfCore
                 if (context.Products.Count() == 0)
                 {
                     context.Products.AddRange(Products);
+                    context.AddRange(ProductCategories);
                 }
             }
             context.SaveChanges();
@@ -40,8 +41,19 @@ namespace ShopApp.Data.Concrete.EfCore
             new Product(){Name="Samsung s6",Price=30,Description="Fine",ImageUrl="3.jpg",IsApproved=false},
             new Product(){Name="Samsung s7",Price=40,Description="Fine",ImageUrl="4.jpg",IsApproved=true},
             new Product(){Name="Samsung s8",Price=50,Description="Fine",ImageUrl="5.jpg",IsApproved=false},
-            new Product(){Name="Samsung s9",Price=60,Description="Fine",ImageUrl="1.jpg",IsApproved=true},
-  
+            new Product(){Name="Samsung s9",Price=60,Description="Fine",ImageUrl="1.jpg",IsApproved=true},  
+        };
+
+        private static ProductCategory[] ProductCategories =
+        {
+            new ProductCategory(){Product=Products[0],Category=Categories[0]},
+            new ProductCategory(){Product=Products[0],Category=Categories[2]},
+            new ProductCategory(){Product=Products[1],Category=Categories[0]},
+            new ProductCategory(){Product=Products[1],Category=Categories[2]},
+            new ProductCategory(){Product=Products[2],Category=Categories[2]},
+            new ProductCategory(){Product=Products[2],Category=Categories[2]},
+            new ProductCategory(){Product=Products[3],Category=Categories[2]},
+            new ProductCategory(){Product=Products[3],Category=Categories[2]}
         };
     }
 }

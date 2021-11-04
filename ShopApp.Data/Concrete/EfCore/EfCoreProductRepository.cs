@@ -1,4 +1,5 @@
-﻿using ShopApp.Data.Abstract;
+﻿using Microsoft.EntityFrameworkCore;
+using ShopApp.Data.Abstract;
 using ShopApp.Entity;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,14 @@ namespace ShopApp.Data.Concrete.EfCore
            using(var context=new ShopContext())
             {
                 return context.Products.ToList();
+            }
+        }
+
+        public Product GetProductDetails(int id)
+        {
+            using (var context = new ShopContext())
+            {
+                return context.Products.Where(i => i.ProductId == id).Include(i => i.ProductCategories).ThenInclude(i => i.Category).FirstOrDefault();
             }
         }
 
