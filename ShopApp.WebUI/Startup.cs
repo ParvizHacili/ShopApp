@@ -86,8 +86,20 @@ namespace ShopApp.WebUI
             }
             app.UseRouting();
 
+            
+
             app.UseEndpoints(endpoints =>
             {
+           
+
+
+
+                endpoints.MapControllerRoute(
+                    name: "products",
+                    pattern: "products/{category?}",
+                    defaults: new { controller="Shop",action="list" }
+                    );
+
                 endpoints.MapControllerRoute(
                     name:"default",
                     pattern:"{controller=Home}/{action=Index}/{id?}"
