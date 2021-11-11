@@ -30,9 +30,10 @@ namespace ShopApp.Data.Concrete.EfCore
 
         private static Category[] Categories =
         {
-            new Category(){Name="Telefon"},
-            new Category(){Name="Kompyuter"},
-            new Category(){Name="Elektronika"}
+            new Category(){Name="Telefon",Url="telefon"},
+            new Category(){Name="Kompyuter",Url="kompyuter"},
+            new Category(){Name="Elektronika",Url="elektronika"},
+            new Category(){Name="İkinci Əl",Url="ikinci-əl"}
         };
 
         private static Product[] Products =
