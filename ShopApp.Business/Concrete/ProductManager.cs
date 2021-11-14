@@ -35,9 +35,9 @@ namespace ShopApp.Business.Concrete
             return _productRepository.GetByID(id);
         }
 
-        public Product GetProductDetails(int id)
+        public Product GetProductDetails(string url)
         {
-           return _productRepository.GetProductDetails(id);
+           return _productRepository.GetProductDetails(url);
         }
 
         public List<Product> GetProductsByCategory(string name)
