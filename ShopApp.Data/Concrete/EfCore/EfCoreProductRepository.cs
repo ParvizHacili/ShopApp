@@ -14,7 +14,7 @@ namespace ShopApp.Data.Concrete.EfCore
         {
             using (var context = new ShopContext())
             {
-                var products = context.Products.AsQueryable();
+                var products = context.Products.Where(i=>i.IsApproved).AsQueryable();
                 if (!string.IsNullOrEmpty(category))
                 {
                     products = products.Include(i => i.ProductCategories)
@@ -22,6 +22,14 @@ namespace ShopApp.Data.Concrete.EfCore
                         .Where(i => i.ProductCategories.Any(a => a.Category.Url == category));
                 }
                 return products.Count();
+            }
+        }
+
+        public List<Product> GetHomePageProducts()
+        {
+            using (var context = new ShopContext())
+            {
+                return context.Products.Where(i=>i.IsApproved && i.IsHome==true).ToList();
             }
         }
 
@@ -46,7 +54,7 @@ namespace ShopApp.Data.Concrete.EfCore
         {
            using(var context=new ShopContext())
             {
-                var products = context.Products.AsQueryable();
+                var products = context.Products.Where(i=>i.IsApproved).AsQueryable();
                 if(!string.IsNullOrEmpty(name))
                 {
                     products = products.Include(i => i.ProductCategories)

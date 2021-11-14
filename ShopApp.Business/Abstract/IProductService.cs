@@ -9,6 +9,7 @@ namespace ShopApp.Business.Abstract
     {
         Product GetByID(int id);
         Product GetProductDetails(string url);
+        List<Product> GetHomePageProducts();
         List<Product> GetProductsByCategory(string name, int page, int pageSize);
         List<Product> GetAll();
         void Create(Product entity);
