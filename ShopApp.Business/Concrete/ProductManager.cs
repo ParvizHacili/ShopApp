@@ -35,14 +35,19 @@ namespace ShopApp.Business.Concrete
             return _productRepository.GetByID(id);
         }
 
+        public int GetCountByCategory(string category)
+        {
+            return _productRepository.GetCountByCategory(category);
+        }
+
         public Product GetProductDetails(string url)
         {
            return _productRepository.GetProductDetails(url);
         }
 
-        public List<Product> GetProductsByCategory(string name)
+        public List<Product> GetProductsByCategory(string name, int page, int pageSize)
         {
-            return _productRepository.GetProductsByCategory(name);
+            return _productRepository.GetProductsByCategory(name,page,pageSize);
         }
 
         public void Update(Product entity)
