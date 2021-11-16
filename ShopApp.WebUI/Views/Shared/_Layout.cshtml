@@ -1,4 +1,5 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Newtonsoft.Json
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +21,19 @@
 
     <main class="my-3">
         <div class="container">
-           @RenderBody()
+
+            @if (TempData["message"] != null)
+            {
+                var message = JsonConvert.DeserializeObject<AlertMessage>(TempData["message"] as String);
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert-@message.AlertType">
+                           @message.Message
+                        </div>
+                    </div>
+                </div>
+            }
+            @RenderBody()
         </div>
     </main>
 

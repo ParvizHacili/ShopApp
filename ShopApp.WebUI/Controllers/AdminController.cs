@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using ShopApp.Business.Abstract;
 using ShopApp.Entity;
 using ShopApp.WebUI.Models;
@@ -42,6 +43,13 @@ namespace ShopApp.WebUI.Controllers
                 ImageUrl=productModel.ImageUrl
             };
             _productService.Create(entity);
+
+            var msg= new AlertMessage()
+            {
+                Message = $"{entity.Name} adlı məhsul uğurla əlavə edildi",
+                AlertType = "success"
+            };
+            TempData["message"] = JsonConvert.SerializeObject(msg);
             return RedirectToAction("ProductList");
         }
 
@@ -89,6 +97,14 @@ namespace ShopApp.WebUI.Controllers
 
                 _productService.Update(entity);
             }
+
+            var msg = new AlertMessage()
+            {
+                Message = $"{entity.Name} adlı məhsul uğurla yeniləndi",
+                AlertType = "success"
+            };
+            TempData["message"] = JsonConvert.SerializeObject(msg);
+
             return RedirectToAction("ProductList");
         }
 
@@ -99,7 +115,14 @@ namespace ShopApp.WebUI.Controllers
             {
                 _productService.Delete(entity);
             }
-          
+
+            var msg = new AlertMessage()
+            {
+                Message = $"{entity.Name} adlı məhsul uğurla silindi",
+                AlertType = "danger"
+            };
+            TempData["message"] = JsonConvert.SerializeObject(msg);
+
             return RedirectToAction("ProductList");
         }
     }
