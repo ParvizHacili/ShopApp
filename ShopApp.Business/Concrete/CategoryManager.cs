@@ -29,9 +29,14 @@ namespace ShopApp.Business.Concrete
             return _categoryRepository.GetAll();
         }
 
-        public Category GetByID(int id)
+        public Category GetById(int id)
         {
             return _categoryRepository.GetByID(id);
+        }
+
+        public Category GetByIdWithProducts(int categoryId)
+        {
+            return _categoryRepository.GetByIdWithProducts(categoryId);
         }
 
         public void Update(Category entity)

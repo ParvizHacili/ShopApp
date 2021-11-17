@@ -7,10 +7,12 @@ namespace ShopApp.Business.Abstract
 {
    public interface ICategoryService
     {
-        Category GetByID(int id);
+        Category GetById(int id);
+        Category GetByIdWithProducts(int categoryId);
         List<Category> GetAll();
         void Create(Category entity);
         void Update(Category entity);
         void Delete(Category entity);
+
     }
 }

@@ -171,7 +171,7 @@ namespace ShopApp.WebUI.Controllers
             {
                 return NotFound();
             }
-            var entity = _categoryService.GetByID((int)id);
+            var entity = _categoryService.GetByIdWithProducts((int)id);
 
             if (entity == null)
             {
@@ -183,6 +183,7 @@ namespace ShopApp.WebUI.Controllers
                 CategoryId = entity.CategoryId,
                 Name = entity.Name,
                 Url = entity.Url,
+                Products = entity.ProductCategories.Select(p => p.Product).ToList()
             };
             return View(model);
         }
@@ -190,7 +191,7 @@ namespace ShopApp.WebUI.Controllers
         [HttpPost]
         public IActionResult CategoryEdit(CategoryModel categoryModel)
         {
-            var entity = _categoryService.GetByID(categoryModel.CategoryId);
+            var entity = _categoryService.GetById(categoryModel.CategoryId);
             if (entity == null)
             {
                 return NotFound();
@@ -216,7 +217,7 @@ namespace ShopApp.WebUI.Controllers
 
         public IActionResult DeleteCategory(int categoryId)
         {
-            var entity = _categoryService.GetByID(categoryId);
+            var entity = _categoryService.GetById(categoryId);
             if (entity != null)
             {
                 _categoryService.Delete(entity);
