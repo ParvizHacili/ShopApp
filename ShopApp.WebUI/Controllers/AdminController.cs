@@ -19,6 +19,7 @@ namespace ShopApp.WebUI.Controllers
             _productService = productService;
             _categoryService = categoryService;
         }
+
         #region Product
         public IActionResult ProductList()
         {
@@ -110,7 +111,7 @@ namespace ShopApp.WebUI.Controllers
 
             return RedirectToAction("ProductList");
         }
-
+        [HttpPost]
         public IActionResult DeleteProduct(int productId)
         {
             var entity = _productService.GetByID(productId);
@@ -214,7 +215,7 @@ namespace ShopApp.WebUI.Controllers
 
             return RedirectToAction("CategoryList");
         }
-
+        [HttpPost]
         public IActionResult DeleteCategory(int categoryId)
         {
             var entity = _categoryService.GetById(categoryId);
@@ -233,6 +234,13 @@ namespace ShopApp.WebUI.Controllers
             return RedirectToAction("CategoryList");
         }
 
+        [HttpPost]
+        public IActionResult DeleteFromCategory(int productId,int categoryId)
+        {
+            _categoryService.DeleteFromCategory(productId, categoryId);
+
+            return Redirect("/admin/categories/" + categoryId);
+        }
         #endregion
     }
 }

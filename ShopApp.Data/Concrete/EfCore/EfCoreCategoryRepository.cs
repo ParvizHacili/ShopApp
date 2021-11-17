@@ -10,6 +10,15 @@ namespace ShopApp.Data.Concrete.EfCore
 {
     public class EfCoreCategoryRepository : EfCoreGenericRepository<Category, ShopContext>, ICategoryRepository
     {
+        public void DeleteFromCategory(int productId, int categoryId)
+        {
+           using(var context=new ShopContext())
+            {
+                var cmd = $"Delete from ProductCategory where ProductId=@p0 and CategoryId=@p1";
+                context.Database.ExecuteSqlRaw(cmd, productId, categoryId);
+            }
+        }
+
         public Category GetByIdWithProducts(int CategororyId)
         {
            using(var context=new ShopContext())

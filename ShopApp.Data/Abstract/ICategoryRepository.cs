@@ -8,5 +8,7 @@ namespace ShopApp.Data.Abstract
     public interface ICategoryRepository:IRepository<Category>
     {
         Category GetByIdWithProducts(int CategororyId);
+        void DeleteFromCategory(int productId, int categoryId);
+
     }
 }
