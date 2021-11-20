@@ -8,6 +8,7 @@ namespace ShopApp.Business.Abstract
    public interface IProductService
     {
         Product GetByID(int id);
+        Product GetByIdWithCategories(int id);
         Product GetProductDetails(string url);
         List<Product> GetHomePageProducts();
         List<Product> GetSearchResult(string searchString);

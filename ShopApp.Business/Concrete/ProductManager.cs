@@ -35,6 +35,11 @@ namespace ShopApp.Business.Concrete
             return _productRepository.GetByID(id);
         }
 
+        public Product GetByIdWithCategories(int id)
+        {
+            return _productRepository.GetByIdWithCategories(id);
+        }
+
         public int GetCountByCategory(string category)
         {
             return _productRepository.GetCountByCategory(category);

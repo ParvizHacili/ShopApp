@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShopApp.Entity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,5 +18,7 @@ namespace ShopApp.WebUI.Models
         public string ImageUrl { get; set; }
         public bool IsApproved { get; set; }
         public bool IsHome { get; set; }
+
+        public List<Category> SelectedCategories { get; set; }
     }
 }
