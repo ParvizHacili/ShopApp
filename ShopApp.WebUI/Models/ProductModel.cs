@@ -1,4 +1,5 @@
 ﻿using ShopApp.Entity;
+using ShopApp.WebUI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,11 +12,24 @@ namespace ShopApp.WebUI.Models
     {
         public int ProductId { get; set; }
         [Display(Name="Name",Prompt ="Enter Product Name")]
+        [Required(ErrorMessage ="Ad"+UiMessages.RequiredMessage)]
+        [StringLength(maximumLength:50,ErrorMessage ="Məhsul adı 50"+UiMessages.StringLengthMessage)]
         public string Name { get; set; }
+
+        [Required(ErrorMessage = "Url"+ UiMessages.RequiredMessage)]
         public string Url { get; set; }
-        public decimal? Price { get; set; }
+
+        [Required(ErrorMessage = "Qiymət"+UiMessages.RequiredMessage)]
+        [Range(minimum:1,maximum:100000,ErrorMessage ="Qiymət mənfi və 0 ola bilməz")]
+        public double? Price { get; set; }
+
+        [Required(ErrorMessage = "Açıqlama"+ UiMessages.RequiredMessage)]
+        [StringLength(maximumLength: 50, ErrorMessage = "Açıqlama 500" + UiMessages.StringLengthMessage)]
         public string Description { get; set; }
+
+        [Required(ErrorMessage = "Şəkil"+ UiMessages.RequiredMessage)]
         public string ImageUrl { get; set; }
+
         public bool IsApproved { get; set; }
         public bool IsHome { get; set; }
 
