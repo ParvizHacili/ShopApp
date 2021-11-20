@@ -15,7 +15,7 @@ namespace ShopApp.Business.Abstract
         List<Product> GetProductsByCategory(string name, int page, int pageSize);
         List<Product> GetAll();
         void Create(Product entity);
-        void Update(Product entity);
+        void Update(Product entity, int[] categoryIds);
         void Delete(Product entity);
         int GetCountByCategory(string category);
     }

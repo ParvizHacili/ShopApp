@@ -87,7 +87,7 @@ namespace ShopApp.WebUI.Controllers
         }
 
         [HttpPost]
-        public IActionResult ProductEdit(ProductModel productModel)
+        public IActionResult ProductEdit(ProductModel productModel,int[] categoryIds)
         {
             var entity = _productService.GetByID(productModel.ProductId);
             if (entity == null)
@@ -102,7 +102,8 @@ namespace ShopApp.WebUI.Controllers
                 entity.Price = productModel.Price;
                 entity.Description = productModel.Description;
 
-                _productService.Update(entity);
+
+                _productService.Update(entity,categoryIds);
             }
 
             var msg = new AlertMessage()

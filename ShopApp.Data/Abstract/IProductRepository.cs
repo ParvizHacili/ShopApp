@@ -13,5 +13,6 @@ namespace ShopApp.Data.Abstract
         List<Product> GetSearchResult(string searchString);
         List<Product> GetHomePageProducts();
         int GetCountByCategory(string category);
+        void Update(Product entity, int[] categoryIds);
     }
 }
