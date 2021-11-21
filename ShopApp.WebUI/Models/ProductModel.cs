@@ -12,11 +12,12 @@ namespace ShopApp.WebUI.Models
     {
         public int ProductId { get; set; }
         [Display(Name="Name",Prompt ="Enter Product Name")]
-        [Required(ErrorMessage ="Ad"+UiMessages.RequiredMessage)]
+        [Required(ErrorMessage ="Məhsul Adı"+UiMessages.RequiredMessage)]
         [StringLength(maximumLength:50,ErrorMessage ="Məhsul adı 50"+UiMessages.StringLengthMessage)]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Url"+ UiMessages.RequiredMessage)]
+        [StringLength(maximumLength: 50, ErrorMessage = "Url 50" + UiMessages.StringLengthMessage)]
         public string Url { get; set; }
 
         [Required(ErrorMessage = "Qiymət"+UiMessages.RequiredMessage)]
