@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ShopApp.Business.Abstract
 {
-   public interface ICategoryService
+   public interface ICategoryService:IValidator<Category>
     {
         Category GetById(int id);
         Category GetByIdWithProducts(int categoryId);

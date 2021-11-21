@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using ShopApp.Business.Abstract;
 using ShopApp.Entity;
+using ShopApp.WebUI.Helpers;
 using ShopApp.WebUI.Models;
 using System;
 using System.Collections.Generic;
@@ -48,17 +49,22 @@ namespace ShopApp.WebUI.Controllers
                     Description = productModel.Description,
                     ImageUrl = productModel.ImageUrl
                 };
-                _productService.Create(entity);
 
-                var msg = new AlertMessage()
+               if( _productService.Create(entity))
                 {
-                    Message = $"{entity.Name} adlı məhsul uğurla əlavə edildi",
-                    AlertType = "success"
-                };
-                TempData["message"] = JsonConvert.SerializeObject(msg);
-                return RedirectToAction("ProductList");
+                    CreateMessage(UiMessages.CreateSuccesMessage, "success");
+                    return RedirectToAction("ProductList");
+                }
+               else
+                {
+                    CreateMessage(_productService.ErrorMessage, "danger");
+                    return View(productModel);
+                }              
             }
-            return View(productModel);
+            else
+            {
+                return View(productModel);
+            }
         }
 
         [HttpGet]
@@ -263,6 +269,18 @@ namespace ShopApp.WebUI.Controllers
             _categoryService.DeleteFromCategory(productId, categoryId);
 
             return Redirect("/admin/categories/" + categoryId);
+        }
+        #endregion
+
+        #region Private Methods
+        private void CreateMessage(string message,string alerttype)
+        {
+            var msg = new AlertMessage()
+            {
+                Message = message,
+                AlertType = alerttype
+            };
+            TempData["message"] = JsonConvert.SerializeObject(msg);
         }
         #endregion
     }

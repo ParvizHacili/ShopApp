@@ -11,17 +11,17 @@ namespace ShopApp.WebUI.Models
     public class ProductModel
     {
         public int ProductId { get; set; }
-        [Display(Name="Name",Prompt ="Enter Product Name")]
-        [Required(ErrorMessage ="Məhsul Adı"+UiMessages.RequiredMessage)]
-        [StringLength(maximumLength:50,ErrorMessage ="Məhsul adı 50"+UiMessages.StringLengthMessage)]
+        [Display(Name = "Name", Prompt = "Enter Product Name")]
+        [Required(ErrorMessage = "Məhsul Adı" + UiMessages.RequiredMessage)]
+        [StringLength(maximumLength: 50, ErrorMessage = "Məhsul adı 50" + UiMessages.StringLengthMessage)]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Url"+ UiMessages.RequiredMessage)]
         [StringLength(maximumLength: 50, ErrorMessage = "Url 50" + UiMessages.StringLengthMessage)]
         public string Url { get; set; }
 
-        [Required(ErrorMessage = "Qiymət"+UiMessages.RequiredMessage)]
-        [Range(minimum:1,maximum:100000,ErrorMessage ="Qiymət mənfi və 0 ola bilməz")]
+        [Required(ErrorMessage = "Qiymət" + UiMessages.RequiredMessage)]
+        [Range(minimum: 1, maximum: 100000, ErrorMessage = "Qiymət mənfi və 0 ola bilməz")]
         public double? Price { get; set; }
 
         [Required(ErrorMessage = "Açıqlama"+ UiMessages.RequiredMessage)]

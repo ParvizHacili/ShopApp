@@ -15,9 +15,15 @@ namespace ShopApp.Business.Concrete
         {
             _productRepository = productRepository;
         }
-        public void Create(Product entity)
+
+        public bool Create(Product entity)
         {
-            _productRepository.Create(entity);
+            if(Validation(entity))
+            {
+                _productRepository.Create(entity);
+                return true;
+            }
+            return false;
         }
 
         public void Delete(Product entity)
@@ -73,6 +79,27 @@ namespace ShopApp.Business.Concrete
         public void Update(Product entity, int[] categoryIds)
         {
             _productRepository.Update(entity, categoryIds);
+        }
+
+        public string ErrorMessage { get ; set; }
+
+        public bool Validation(Product entity)
+        {
+            var IsValid = true;
+
+            if(string.IsNullOrEmpty(entity.Name))
+            {
+                ErrorMessage += "Məhsul adı boş ola bilməz!\n";
+                IsValid = false;
+            }
+
+            if (entity.Price<0 || entity.Price==0)
+            {
+                ErrorMessage += "Məhsul qiyməti mənfi və 0 ola bilməz!\n";
+                IsValid = false;
+            }
+
+            return IsValid;
         }
     }
 }
