@@ -14,7 +14,6 @@ namespace ShopApp.Entity
         public string ImageUrl { get; set; }
         public bool IsApproved { get; set; }
         public bool IsHome { get; set; }
-
         public List<ProductCategory> ProductCategories { get; set; }
 
     }

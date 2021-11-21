@@ -89,6 +89,8 @@ namespace ShopApp.WebUI.Controllers
                 ImageUrl = entity.ImageUrl,
                 Price = entity.Price,
                 Description = entity.Description,
+                IsApproved=entity.IsApproved,
+                IsHome=entity.IsHome,
                 SelectedCategories = entity.ProductCategories.Select(i => i.Category).ToList()
             };
 
@@ -113,19 +115,19 @@ namespace ShopApp.WebUI.Controllers
                     entity.ImageUrl = productModel.ImageUrl;
                     entity.Price = productModel.Price;
                     entity.Description = productModel.Description;
+                    entity.IsApproved = productModel.IsApproved;
+                    entity.IsHome = productModel.IsHome;
 
-
-                    _productService.Update(entity, categoryIds);
-                }
-
-                var msg = new AlertMessage()
-                {
-                    Message = $"{entity.Name} adlı məhsul uğurla yeniləndi",
-                    AlertType = "success"
-                };
-                TempData["message"] = JsonConvert.SerializeObject(msg);
-
-                return RedirectToAction("ProductList");
+                    if (_productService.Update(entity, categoryIds))
+                    {
+                        CreateMessage(UiMessages.UpdateSuccesMessage, "success");
+                        return RedirectToAction("ProductList");
+                    }
+                    else
+                    {
+                        CreateMessage(_productService.ErrorMessage, "danger");
+                    }
+                }              
             }
             ViewBag.Categories = _categoryService.GetAll();
             return View(productModel);

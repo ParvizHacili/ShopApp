@@ -64,11 +64,11 @@
 
             @for (int i = 0; i < Model.SelectedCategories.Count; i++)
             {
-                <input type="hidden" name="SelectedCategories[@i].CategoryId" value="@Model.SelectedCategories[@i].CategoryId"/>
-                <input type="hidden" name="SelectedCategories[@i].Name" value="@Model.SelectedCategories[@i].Name"/>
+                <input type="hidden" name="SelectedCategories[@i].CategoryId" value="@Model.SelectedCategories[@i].CategoryId" />
+                <input type="hidden" name="SelectedCategories[@i].Name" value="@Model.SelectedCategories[@i].Name" />
             }
 
-                @foreach (var item in (List<Category>)ViewBag.Categories)
+            @foreach (var item in (List<Category>)ViewBag.Categories)
             {
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input"
@@ -79,6 +79,17 @@
                     <label class="custom-control-label" for="category_@(item.CategoryId)">@item.Name</label>
                 </div>
             }
+            <hr />
+
+            <div class="custom-control custom-checkbox">
+                <input asp-for="IsApproved" type="checkbox" class="custom-control-input" />
+                <label asp-for="IsApproved" class="custom-control-label"></label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input asp-for="IsHome" type="checkbox" class="custom-control-input" />
+                <label asp-for="IsHome" class="custom-control-label"></label>
+            </div>
+
         </div>
     </div>
 </form>
