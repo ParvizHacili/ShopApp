@@ -3,7 +3,7 @@
 <h1 class="h3">Edit Product</h1>
 <hr />
 
-<form asp-controller="Admin" asp-action="ProductEdit" method="post" enctype="multipart/form-data"  >
+<form asp-controller="Admin" asp-action="ProductEdit" method="post" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-12">
             <div class="text-danger" asp-validation-summary="All"></div>
@@ -48,8 +48,8 @@
                 <label asp-for="ImageUrl" class="col-sm-2 col-form-label"></label>
                 <div class="col-sm-10">
                     <input type="hidden" asp-for="ImageUrl">
-                    <img src="~/img/@Model.ImageUrl" width="80"/>
-                    <input type="file" name="file"/>
+                    <img src="~/img/@Model.ImageUrl" width="80" />
+                    <input type="file" name="file" />
                 </div>
             </div>
 
@@ -97,6 +97,12 @@
 
 @section Scripts
 {
+
+
+    <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+
+
     <script src="~/ckeditor/ckeditor.js"></script>
 
     <script>
