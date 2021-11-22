@@ -127,11 +127,7 @@ namespace ShopApp.WebUI
 
             app.UseAuthentication();
             app.UseRouting();
-
-            
-
-
-
+            app.UseAuthorization();
 
 
             app.UseEndpoints(endpoints =>
