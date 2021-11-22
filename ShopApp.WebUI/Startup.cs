@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -10,6 +12,7 @@ using ShopApp.Business.Abstract;
 using ShopApp.Business.Concrete;
 using ShopApp.Data.Abstract;
 using ShopApp.Data.Concrete.EfCore;
+using ShopApp.WebUI.Identity;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,6 +33,10 @@ namespace ShopApp.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlite("Data Source=shopDb"));
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
+
+
             services.AddScoped<IProductRepository,EfCoreProductRepository>();
             services.AddScoped<IProductService,ProductManager>();
 
@@ -84,9 +91,15 @@ namespace ShopApp.WebUI
                 SeedDatabase.Seed();
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseAuthentication();
             app.UseRouting();
 
             
+
+
+
+
 
             app.UseEndpoints(endpoints =>
             {
