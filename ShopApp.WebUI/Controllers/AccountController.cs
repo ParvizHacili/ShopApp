@@ -19,9 +19,40 @@ namespace ShopApp.WebUI.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-        public IActionResult Login()
+        public IActionResult Login(string ReturnUrl=null)
         {
-            return View();
+
+            return View(new LoginModel
+            {
+                ReturnUrl = ReturnUrl
+            });
+        }
+
+        [HttpPost]
+        public async Task< IActionResult> Login(LoginModel loginModel)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(loginModel);
+            }
+
+            //var user = await _userManager.FindByNameAsync(loginModel.UserName);
+            var user = await _userManager.FindByEmailAsync(loginModel.Email);
+
+            if(user==null)
+            {
+                ModelState.AddModelError("", "İstifadəçi adı mövcud deyil");
+
+                return View(loginModel);
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(user, loginModel.Password, false, false);
+            if(result.Succeeded)
+            {
+                return Redirect(loginModel.ReturnUrl??"~/");
+            }
+            ModelState.AddModelError("", "Istifadəçi adı və ya şifrə yanlışdır");
+            return View(loginModel);
         }
 
         [HttpGet]

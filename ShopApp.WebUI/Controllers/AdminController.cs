@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace ShopApp.WebUI.Controllers
 {
-   
+   [Authorize]
     public class AdminController : Controller
     {
         private IProductService _productService;
