@@ -85,5 +85,12 @@ namespace ShopApp.WebUI.Controllers
             ModelState.AddModelError("Password", "Bilinməyən xəta baş verdi zəhmət olmasa yenidən cəhd edin");
             return View(registerModel);
         }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            return Redirect("~/");
+        }
     }
 }
