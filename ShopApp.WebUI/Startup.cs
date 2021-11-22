@@ -12,6 +12,7 @@ using ShopApp.Business.Abstract;
 using ShopApp.Business.Concrete;
 using ShopApp.Data.Abstract;
 using ShopApp.Data.Concrete.EfCore;
+using ShopApp.WebUI.EmailServices;
 using ShopApp.WebUI.Identity;
 using System;
 using System.Collections.Generic;
@@ -23,12 +24,13 @@ namespace ShopApp.WebUI
 {
     public class Startup
     {
+        private IConfiguration _configuration;
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        //public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -52,7 +54,7 @@ namespace ShopApp.WebUI
 
                 //users
                 options.User.RequireUniqueEmail = true;
-                options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedEmail = true;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
             });
 
@@ -77,6 +79,14 @@ namespace ShopApp.WebUI
             services.AddScoped<ICategoryRepository,EfCoreCategoryRepository>();
             services.AddScoped<ICategoryService,CategoryManager>();
 
+            services.AddScoped<IEmailSender, SmtpEmailSender>(i =>
+            new SmtpEmailSender(
+                _configuration["EmailSender:Host"],
+                _configuration.GetValue<int>("EmailSender:Port"),
+                _configuration.GetValue<bool>("EmailSender:EnableSSl"),
+                 _configuration["EmailSender:UserName"],
+                 _configuration["EmailSender:Password"])
+            );
 
             services.AddControllersWithViews();
             //services.AddRazorPages();

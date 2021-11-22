@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using ShopApp.WebUI.EmailServices;
+using ShopApp.WebUI.Helpers;
 using ShopApp.WebUI.Identity;
 using ShopApp.WebUI.Models;
 using System;
@@ -14,11 +17,12 @@ namespace ShopApp.WebUI.Controllers
     {
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
-
-        public AccountController(UserManager<User> userManager,SignInManager<User> signInManager)
+        private IEmailSender _emailSender;
+        public AccountController(UserManager<User> userManager,SignInManager<User> signInManager, IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailSender = emailSender;
         }
         public IActionResult Login(string ReturnUrl=null)
         {
@@ -30,6 +34,7 @@ namespace ShopApp.WebUI.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task< IActionResult> Login(LoginModel loginModel)
         {
             if(!ModelState.IsValid)
@@ -43,9 +48,16 @@ namespace ShopApp.WebUI.Controllers
             if(user==null)
             {
                 ModelState.AddModelError("", "İstifadəçi adı mövcud deyil");
+                return View(loginModel);
+            }
+
+            if(! await _userManager.IsEmailConfirmedAsync(user))
+            {
+                ModelState.AddModelError("", "Zəhmət olmasa email adresinizə gələn link ilə hesabınızı təsdiqləyin");
 
                 return View(loginModel);
             }
+
 
             var result = await _signInManager.PasswordSignInAsync(user, loginModel.Password, false, false);
             if(result.Succeeded)
@@ -63,6 +75,7 @@ namespace ShopApp.WebUI.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task <IActionResult> Register(RegisterModel registerModel)
         {
             if(!ModelState.IsValid)
@@ -80,6 +93,14 @@ namespace ShopApp.WebUI.Controllers
             var result = await _userManager.CreateAsync(user, registerModel.Password);
             if(result.Succeeded)
             {
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                var url = Url.Action("ConfirmEmail","Account",new { 
+                    userId=user.Id,
+                    token=code
+                });
+
+                await _emailSender.SendEmailAsync(registerModel.Email, "Hesab Doğrulaması",$"Zəhmət olmasa hesabınızı təsdiqləmək üçün linkə <a href='https://localhost:44318{url}'>tıklayın!</a>");
+
                 return RedirectToAction("Login", "Account");
             }
 
@@ -92,6 +113,38 @@ namespace ShopApp.WebUI.Controllers
             await _signInManager.SignOutAsync();
 
             return Redirect("~/");
+        }
+
+        public async Task<IActionResult> ConfirmEmail(string userId,string token)
+        {
+            if(userId==null || token==null)
+            {
+                CreateMessage("Invalid Token", "danger");
+                return View();
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if(user!=null)
+            {
+                var result = await _userManager.ConfirmEmailAsync(user, token);
+                if (result.Succeeded)
+                {
+                    CreateMessage("Hesabınız Təsdiqləndi", "success");                
+                    return View();
+                }
+            }
+            CreateMessage("Hesabınız Təsdiqlənmədi", "warning");
+            return View();
+        }
+
+        private void CreateMessage(string message, string alerttype)
+        {
+            var msg = new AlertMessage()
+            {
+                Message = message,
+                AlertType = alerttype
+            };
+            TempData["message"] = JsonConvert.SerializeObject(msg);
         }
     }
 }
