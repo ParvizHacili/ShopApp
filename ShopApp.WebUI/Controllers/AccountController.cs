@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ShopApp.WebUI.EmailServices;
+using ShopApp.WebUI.Extensions;
 using ShopApp.WebUI.Helpers;
 using ShopApp.WebUI.Identity;
 using ShopApp.WebUI.Models;
@@ -112,6 +113,13 @@ namespace ShopApp.WebUI.Controllers
         {
             await _signInManager.SignOutAsync();
 
+            TempData.Put("message", new AlertMessage()
+            {
+                Title = "Hesabdan çıxış edildi",
+                Message = " ",
+                AlertType = "success"
+            });
+
             return Redirect("~/");
         }
 
@@ -119,7 +127,12 @@ namespace ShopApp.WebUI.Controllers
         {
             if(userId==null || token==null)
             {
-                CreateMessage("Invalid Token", "danger");
+                TempData.Put("message", new AlertMessage()
+                {
+                    Title= "Invalid Token",
+                    Message= "Invalid Token",
+                    AlertType= "danger"
+                });
                 return View();
             }
 
@@ -129,11 +142,21 @@ namespace ShopApp.WebUI.Controllers
                 var result = await _userManager.ConfirmEmailAsync(user, token);
                 if (result.Succeeded)
                 {
-                    CreateMessage("Hesabınız Təsdiqləndi", "success");                
+                    TempData.Put("message", new AlertMessage()
+                    {
+                        Title = "Hesabınız Təsdiqləndi",
+                        Message = "Hesabınız Təsdiqləndi",
+                        AlertType = "success"
+                    });
                     return View();
                 }
             }
-            CreateMessage("Hesabınız Təsdiqlənmədi", "warning");
+            TempData.Put("message", new AlertMessage()
+            {
+                Title = "Hesabınız Təsdiqlənmədi",
+                Message = "Hesabınız Təsdiqlənmədi",
+                AlertType = "warning"
+            });
             return View();
         }
 
@@ -204,16 +227,6 @@ namespace ShopApp.WebUI.Controllers
 
 
             return View(resetPasswordModel);
-        }
-
-        private void CreateMessage(string message, string alerttype)
-        {
-            var msg = new AlertMessage()
-            {
-                Message = message,
-                AlertType = alerttype
-            };
-            TempData["message"] = JsonConvert.SerializeObject(msg);
         }
     }
 }

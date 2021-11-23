@@ -1,6 +1,7 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @using Newtonsoft.Json
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,22 +19,16 @@
     @await Html.PartialAsync("_navbar")
     @RenderSection("Header", false)
 
-
     <main class="my-3">
         <div class="container">
+            <div class="container">
 
-            @if (TempData["message"] != null)
-            {
-                var message = JsonConvert.DeserializeObject<AlertMessage>(TempData["message"] as String);
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="alert-@message.AlertType">
-                           @message.Message
-                        </div>
-                    </div>
-                </div>
-            }
-            @RenderBody()
+                @if (TempData["message"] != null)
+                {
+                    <partial name="_ResultMessage" model="@(TempData.Get<AlertMessage>("message"))" />
+                }
+                @RenderBody()
+            </div>
         </div>
     </main>
 
