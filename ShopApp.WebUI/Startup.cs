@@ -44,8 +44,8 @@ namespace ShopApp.WebUI
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireUppercase = true;
-                options.Password.RequiredLength = 6;
-                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequiredLength = 3;
+                options.Password.RequireNonAlphanumeric = false;
 
                 //lockout
                 options.Lockout.MaxFailedAccessAttempts = 5;

@@ -22,7 +22,7 @@ namespace ShopApp.WebUI.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Sifrə Təkrarı" + UiMessages.RequiredMessage)]
+        [Required(ErrorMessage = "Şifrə Təkrarı" + UiMessages.RequiredMessage)]
         [Compare("Password")]
         [DataType(DataType.Password)]
         public string RePassword { get; set; }
