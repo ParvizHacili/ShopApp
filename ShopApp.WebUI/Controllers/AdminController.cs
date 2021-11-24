@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace ShopApp.WebUI.Controllers
 {
-   [Authorize]
+    [Authorize(Roles = "SuperAdmin")]
     public class AdminController : Controller
     {
         private IProductService _productService;
@@ -31,7 +31,7 @@ namespace ShopApp.WebUI.Controllers
             _userManager = userManager;
         }
         #region Roles
-
+       
         public async Task<IActionResult> RoleEdit(string id)
         {
             var role = await _roleManager.FindByIdAsync(id);
@@ -52,7 +52,7 @@ namespace ShopApp.WebUI.Controllers
             };
             return View(model);
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> RoleEdit(RoleEditModel roleEditModel)
         {
@@ -96,16 +96,18 @@ namespace ShopApp.WebUI.Controllers
 
             return Redirect("/admin/role/" + roleEditModel.RoleId);
         }
-        
+
+       
         public IActionResult RoleList()
         {
             return View(_roleManager.Roles);
         }
+       
         public IActionResult RoleCreate()
         {
             return View();
         }
-        
+       
         [HttpPost]
         public async Task<IActionResult> RoleCreate(RoleModel roleModel)
         {

@@ -228,5 +228,10 @@ namespace ShopApp.WebUI.Controllers
 
             return View(resetPasswordModel);
         }
+
+        public IActionResult AccesDenied()
+        {
+            return View();
+        }
     }
 }
