@@ -3,12 +3,13 @@
 
 @section Css
 {
-    <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
 }
 
 @section Scripts
 {
     <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#myTable').DataTable();
@@ -22,6 +23,7 @@
         <h1 class="h3">User List</h1>
         <hr />
         <a style="margin:10px;" class="btn btn-primary btn-sm" href="/admin/user/create">User Əlavə Et</a>
+        <hr />
         <table id="myTable" class="table table-bordered mt-5">
             <thead>
                 <tr>

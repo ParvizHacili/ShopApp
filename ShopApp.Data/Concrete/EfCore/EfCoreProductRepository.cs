@@ -22,7 +22,7 @@ namespace ShopApp.Data.Concrete.EfCore
         {
             using (var context = new ShopContext())
             {
-                var products = context.Products.Where(i=>i.IsApproved).AsQueryable();
+                var products = context.Products.Where(i => i.IsApproved).AsQueryable();
                 if (!string.IsNullOrEmpty(category))
                 {
                     products = products.Include(i => i.ProductCategories)

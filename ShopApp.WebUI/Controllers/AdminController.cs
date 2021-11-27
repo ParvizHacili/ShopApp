@@ -32,12 +32,70 @@ namespace ShopApp.WebUI.Controllers
         }
 
         #region Users
+       
+        public async Task< IActionResult> UserEdit(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if(user!=null)
+            {
+                var selectedRoles = await _userManager.GetRolesAsync(user);
+                var roles = _roleManager.Roles.Select(i => i.Name);
+
+                ViewBag.Roles = roles;
+
+                return View(new UserDetailsModel()
+                {
+                    UserId = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    EmailConfirmed = user.EmailConfirmed,
+                    SelectedRoles=selectedRoles
+                });
+            }
+            return Redirect("~/admin/user/list");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UserEdit(UserDetailsModel userDetailsModel,string[] selectedRoles)
+        {
+            if(ModelState.IsValid)
+            {
+                var user = await _userManager.FindByIdAsync(userDetailsModel.UserId);
+                if(user!=null)
+                {
+                    user.FirstName = userDetailsModel.FirstName;
+                    user.LastName = userDetailsModel.LastName;
+                    user.UserName = userDetailsModel.UserName;
+                    user.Email = userDetailsModel.Email;
+                    user.EmailConfirmed = userDetailsModel.EmailConfirmed;
+
+                    var result = await _userManager.UpdateAsync(user);
+
+                    if(result.Succeeded)
+                    {
+                        var userRoles = await _userManager.GetRolesAsync(user);
+                        selectedRoles = selectedRoles ?? new string[] { };
+                        await _userManager.AddToRolesAsync(user, selectedRoles.Except(userRoles).ToArray<string>());
+                        await _userManager.RemoveFromRolesAsync(user,userRoles.Except(selectedRoles).ToArray<string>());
+
+
+                        return Redirect("/admin/user/list");
+                    }
+                }
+                return Redirect("/admin/user/list");
+            }
+            
+            return View(userDetailsModel);
+        }
+
         public IActionResult UserList()
-        {           
+        {
             return View(_userManager.Users);
         }
 
-        #endregion
+        #endregion 
         #region Roles
 
         public async Task<IActionResult> RoleEdit(string id)

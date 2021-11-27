@@ -12,7 +12,8 @@ namespace ShopApp.Data.Concrete.EfCore
     {
         public void DeleteFromCategory(int productId, int categoryId)
         {
-           using(var context=new ShopContext())
+
+            using (var context = new ShopContext())
             {
                 var cmd = $"Delete from ProductCategory where ProductId=@p0 and CategoryId=@p1";
                 context.Database.ExecuteSqlRaw(cmd, productId, categoryId);
