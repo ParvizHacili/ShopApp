@@ -94,6 +94,8 @@ namespace ShopApp.WebUI.Controllers
             var result = await _userManager.CreateAsync(user, registerModel.Password);
             if(result.Succeeded)
             {
+                //////////////////////////////////////////////
+                await _userManager.AddToRoleAsync(user, "customer");
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var url = Url.Action("ConfirmEmail","Account",new { 
                     userId=user.Id,

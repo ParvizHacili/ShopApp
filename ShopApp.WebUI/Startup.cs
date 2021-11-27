@@ -119,7 +119,7 @@ namespace ShopApp.WebUI
         //    });
         //}
 
-        public void Configure(IApplicationBuilder app,IWebHostEnvironment environment)
+        public void Configure(IApplicationBuilder app,IWebHostEnvironment environment,IConfiguration configuration,UserManager<User> userManager,RoleManager<IdentityRole> roleManager)
         {
             app.UseStaticFiles();
 
@@ -130,11 +130,11 @@ namespace ShopApp.WebUI
                 RequestPath = "/modules"
             });
 
-            if (environment.IsDevelopment())
-            {
-                SeedDatabase.Seed();
-                app.UseDeveloperExceptionPage();
-            }
+            //if (environment.IsDevelopment())
+            //{
+            //    SeedDatabase.Seed();
+            //    app.UseDeveloperExceptionPage();
+            //}
 
             app.UseAuthentication();
             app.UseRouting();
@@ -234,6 +234,9 @@ namespace ShopApp.WebUI
                     pattern:"{controller=Home}/{action=Index}/{id?}"
                     );
             });
+
+
+            SeedIdentity.Seed(userManager,roleManager,configuration).Wait();
         }
     }
 }

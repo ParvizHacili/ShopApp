@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace ShopApp.WebUI.Controllers
 {
-    [Authorize(Roles = "SuperAdmin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private IProductService _productService;

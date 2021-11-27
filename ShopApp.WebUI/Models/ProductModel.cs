@@ -25,7 +25,7 @@ namespace ShopApp.WebUI.Models
         public double? Price { get; set; }
 
         [Required(ErrorMessage = "Açıqlama"+ UiMessages.RequiredMessage)]
-        [StringLength(maximumLength: 1000, ErrorMessage = "Açıqlama 500" + UiMessages.StringLengthMessage)]
+        [StringLength(maximumLength: 10000, ErrorMessage = "Açıqlama 500" + UiMessages.StringLengthMessage)]
         public string Description { get; set; }
 
         [Required(ErrorMessage = "Şəkil"+ UiMessages.RequiredMessage)]
