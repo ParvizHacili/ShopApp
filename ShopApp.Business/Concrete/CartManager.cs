@@ -14,6 +14,12 @@ namespace ShopApp.Business.Concrete
         {
             _cartRepository = cartRepository;
         }
+
+        public Cart GetCartByUserId(string userId)
+        {
+            return _cartRepository.GetByUserID(userId);
+        }
+
         public void InitializeCart(string userId)
         {
             _cartRepository.Create(new Cart() { UserId = userId });

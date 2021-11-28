@@ -7,6 +7,6 @@ namespace ShopApp.Data.Abstract
 {
    public interface ICartRepository:IRepository<Cart>
     {
-
+       Cart GetByUserID(string UserId);
     }
 }
