@@ -1,17 +1,18 @@
 ﻿@model CartModel
 
-<h1 class="h3">Shopping Cart</h1>
-<hr>
 <div class="row">
     <div class="col-md-8">
-        <table class="table hover">
+        <div class="text-left">
+            <h4>Səbət Məlumatları</h4>
+        </div>
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th></th>
                     <th>Məhsul adı</th>
                     <th>Qiymət</th>
                     <th>Say</th>
-                    <th>Yekun</th>
+                    <th>Toplam</th>
                     <th></th>
                 </tr>
             </thead>
@@ -36,5 +37,30 @@
             </tbody>
         </table>
     </div>
-    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="text-left">
+            <h4>Yekun Məbləğ</h4>
+        </div>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Kargo</th>
+                    <th>Ödənişsiz</th>
+                </tr>
+                <tr>
+                    <th>Sifarişlərin Toplamı</th>
+                    <th>@Model.TotalPrice().ToString() AZN</th>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-center">
+            <a href="/" class="btn btn-primary">
+                <i class="fa fa-arrow-circle-left fa-fw"></i>Alış Verişə Davam Et.
+            </a>
+
+            <a href="/checkout" class="btn btn-primary">
+                <i class="fa fa-arrow-circle-right fa-fw"></i>Ödəniş Et.
+            </a>
+        </div>
+    </div>
 </div>

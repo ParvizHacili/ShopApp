@@ -1,5 +1,6 @@
 ﻿using ShopApp.Entity;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ShopApp.WebUI.Models
 {
@@ -7,6 +8,11 @@ namespace ShopApp.WebUI.Models
     {
         public int CartId { get; set; }
         public List<CartItemModel> CartItems { get; set; }
+
+        public double TotalPrice()
+        {
+            return CartItems.Sum(i => i.Price * i.Quantity);
+        }
     }
 
     public class CartItemModel
