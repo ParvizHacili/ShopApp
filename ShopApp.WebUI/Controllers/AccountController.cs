@@ -99,12 +99,12 @@ namespace ShopApp.WebUI.Controllers
             {
                 //////////////////////////////////////////////
                 await _userManager.AddToRoleAsync(user, "customer");
+
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var url = Url.Action("ConfirmEmail","Account",new { 
                     userId=user.Id,
                     token=code
                 });
-
                 await _emailSender.SendEmailAsync(registerModel.Email, "Hesab Doğrulaması",$"Zəhmət olmasa hesabınızı təsdiqləmək üçün linkə <a href='https://localhost:44318{url}'> keçid edin </a>");
 
                 return RedirectToAction("Login", "Account");

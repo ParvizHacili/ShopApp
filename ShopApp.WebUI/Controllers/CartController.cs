@@ -58,5 +58,27 @@ namespace ShopApp.WebUI.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public IActionResult Checkout()
+        {
+            var cart = _cartService.GetCartByUserId(_userManager.GetUserId(User));
+
+            var orderModel = new OrderModel();
+            orderModel.CartModel = new CartModel()
+            {
+                CartId = cart.Id,
+                CartItems = cart.CartItems.Select(i => new CartItemModel()
+                {
+                    CartItemId = i.Id,
+                    ProductId = i.ProductId,
+                    Name = i.Product.Name,
+                    Price = (double)i.Product.Price,
+                    ImageUrl = i.Product.ImageUrl,
+                    Quantity = i.Quantity
+
+                }).ToList()
+            };
+            return View(orderModel);         
+        }
     }
 }
