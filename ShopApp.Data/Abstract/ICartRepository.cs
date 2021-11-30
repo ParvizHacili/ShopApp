@@ -9,6 +9,6 @@ namespace ShopApp.Data.Abstract
     {
        Cart GetByUserID(string UserId);
         void DeleteFromCart(int cartId, int productId);
-
+        void ClearCart(int cartId);
     }
 }

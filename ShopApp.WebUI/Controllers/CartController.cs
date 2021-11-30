@@ -115,7 +115,7 @@ namespace ShopApp.WebUI.Controllers
                 if (payment.Status == "success")
                 {
                     SaveOrder(orderModel, payment, userId);
-                    ClearCart(userId);
+                    ClearCart(orderModel.CartModel.CartId);
                     return View("Success");
                 }
                 else
@@ -132,9 +132,9 @@ namespace ShopApp.WebUI.Controllers
         }
 
         #region Private Methods
-        private void ClearCart(string userId)
+        private void ClearCart(int cartId)
         {
-            throw new NotImplementedException();
+            _cartService.ClearCart(cartId);
         }
 
         private void SaveOrder(OrderModel orderModel, Payment payment, string userId)
@@ -145,7 +145,7 @@ namespace ShopApp.WebUI.Controllers
             order.PaymentType = EnumPaymentType.CreditCard;
             order.PaymentId = payment.PaymentId;
             order.ConversationId = payment.ConversationId;
-            order.OrderDate = new DateTime();
+            order.OrderDate =DateTime.Now;
             order.FirstName = orderModel.FirstName;
             order.LastName = orderModel.LastName;
             order.Email = orderModel.Email;
