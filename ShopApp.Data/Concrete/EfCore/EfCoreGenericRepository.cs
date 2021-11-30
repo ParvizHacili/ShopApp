@@ -19,13 +19,11 @@ namespace ShopApp.Data.Concrete.EfCore
         public void Create(TEntity entity)
         {
             context.Set<TEntity>().Add(entity);
-            context.SaveChanges();
         }
 
         public void Delete(TEntity entity)
         {
             context.Set<TEntity>().Remove(entity);
-            context.SaveChanges();
         }
 
         public List<TEntity> GetAll()
@@ -41,9 +39,7 @@ namespace ShopApp.Data.Concrete.EfCore
 
         public virtual void Update(TEntity entity)
         {
-          
             context.Entry(entity).State = EntityState.Modified;
-            context.SaveChanges();
         }
     }
 }

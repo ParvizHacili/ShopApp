@@ -22,12 +22,10 @@ namespace ShopApp.Data.Concrete.EfCore
         {
             var cmd = $"Delete from ProductCategory where ProductId=@p0 and CategoryId=@p1";
             ShopContext.Database.ExecuteSqlRaw(cmd, productId, categoryId);
-            
         }
 
         public Category GetByIdWithProducts(int CategororyId)
         {
-          
             return ShopContext.Categories.Where(i => i.CategoryId == CategororyId).Include(i => i.ProductCategories).ThenInclude(i => i.Product).FirstOrDefault();
         }
 

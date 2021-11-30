@@ -10,17 +10,18 @@ namespace ShopApp.Business.Concrete
 {
     public class ProductManager : IProductService
     {
-        private IProductRepository _productRepository;
-        public ProductManager(IProductRepository productRepository)
+        private readonly IUnitOfWork _unitOfWork;
+        public ProductManager(IUnitOfWork unitOfWork)
         {
-            _productRepository = productRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public bool Create(Product entity)
         {
             if(Validation(entity))
             {
-                _productRepository.Create(entity);
+                _unitOfWork.Products.Create(entity);
+                _unitOfWork.Save();
                 return true;
             }
             return false;
@@ -28,52 +29,54 @@ namespace ShopApp.Business.Concrete
 
         public void Delete(Product entity)
         {
-            _productRepository.Delete(entity);
+            _unitOfWork.Products.Delete(entity);
+            _unitOfWork.Save();
         }
 
         public List<Product> GetAll()
         {
-            return _productRepository.GetAll();
+            return _unitOfWork.Products.GetAll();
         }
 
         public Product GetByID(int id)
         {
-            return _productRepository.GetByID(id);
+            return _unitOfWork.Products.GetByID(id);
         }
 
         public Product GetByIdWithCategories(int id)
         {
-            return _productRepository.GetByIdWithCategories(id);
+            return _unitOfWork.Products.GetByIdWithCategories(id);
         }
 
         public int GetCountByCategory(string category)
         {
-            return _productRepository.GetCountByCategory(category);
+            return _unitOfWork.Products.GetCountByCategory(category);
         }
 
         public List<Product> GetHomePageProducts()
         {
-            return _productRepository.GetHomePageProducts();
+            return _unitOfWork.Products.GetHomePageProducts();
         }
 
         public Product GetProductDetails(string url)
         {
-           return _productRepository.GetProductDetails(url);
+           return _unitOfWork.Products.GetProductDetails(url);
         }
 
         public List<Product> GetProductsByCategory(string name, int page, int pageSize)
         {
-            return _productRepository.GetProductsByCategory(name,page,pageSize);
+            return _unitOfWork.Products.GetProductsByCategory(name,page,pageSize);
         }
 
         public List<Product> GetSearchResult(string searchString)
         {
-            return _productRepository.GetSearchResult(searchString);
+            return _unitOfWork.Products.GetSearchResult(searchString);
         }
 
         public void Update(Product entity)
         {
-             _productRepository.Update(entity);
+            _unitOfWork.Products.Update(entity);
+            _unitOfWork.Save();
         }
 
         public bool Update(Product entity, int[] categoryIds)
@@ -85,7 +88,8 @@ namespace ShopApp.Business.Concrete
                     ErrorMessage += "Məhsul üçün ən az 1 kateqoriya seçilməlidir";
                     return false;
                 }
-                _productRepository.Update(entity, categoryIds);
+                _unitOfWork.Products.Update(entity, categoryIds);
+                _unitOfWork.Save();
 
                 return true;
             }

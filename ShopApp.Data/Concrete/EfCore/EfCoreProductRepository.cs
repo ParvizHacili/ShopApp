@@ -29,7 +29,6 @@ namespace ShopApp.Data.Concrete.EfCore
 
         public int GetCountByCategory(string category)
         {
-          
             var products = ShopContext.Products.Where(i => i.IsApproved).AsQueryable();
             if (!string.IsNullOrEmpty(category))
             {
@@ -43,15 +42,12 @@ namespace ShopApp.Data.Concrete.EfCore
 
         public List<Product> GetHomePageProducts()
         {
-           
             return ShopContext.Products.Where(i=>i.IsApproved && i.IsHome==true).ToList();
         }
 
         public List<Product> GetPopularProducts()
         {
-
             return ShopContext.Products.ToList();
-            
         }
 
         public Product GetProductDetails(string url)
@@ -101,8 +97,6 @@ namespace ShopApp.Data.Concrete.EfCore
                     ProductId = entity.ProductId,
                     CategoryId = catid
                 }).ToList();
-
-                context.SaveChanges();
             }
         }
     }
