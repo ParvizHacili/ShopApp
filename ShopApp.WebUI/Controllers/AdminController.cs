@@ -96,6 +96,7 @@ namespace ShopApp.WebUI.Controllers
         }
 
         #endregion 
+
         #region Roles
 
         public async Task<IActionResult> RoleEdit(string id)

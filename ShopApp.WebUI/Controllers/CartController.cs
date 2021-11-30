@@ -4,6 +4,7 @@ using Iyzipay.Request;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using ShopApp.Business.Abstract;
 using ShopApp.Entity;
 using ShopApp.WebUI.Identity;
@@ -117,8 +118,16 @@ namespace ShopApp.WebUI.Controllers
                     ClearCart(userId);
                     return View("Success");
                 }
-            }
-            
+                else
+                {
+                    var msg = new AlertMessage()
+                    {
+                        Message = $"{payment.ErrorMessage}",
+                        AlertType = "danger"
+                    };
+                    TempData["message"] = JsonConvert.SerializeObject(msg);
+                }
+            }            
             return View(orderModel);
         }
 
