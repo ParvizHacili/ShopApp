@@ -18,5 +18,10 @@ namespace ShopApp.Business.Concrete
         {
             _orderRepository.Create(entity);
         }
+
+        public List<Order> GetOrders(string userId)
+        {
+           return _orderRepository.GetOrders(userId);
+        }
     }
 }
