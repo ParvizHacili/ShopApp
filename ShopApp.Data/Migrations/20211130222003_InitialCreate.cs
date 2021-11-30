@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ShopApp.Data.Migrations
 {
-    public partial class AddingOrdertEntities : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -42,7 +42,7 @@ namespace ShopApp.Data.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     OrderNumber = table.Column<string>(type: "TEXT", nullable: true),
                     OrderDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    UserID = table.Column<string>(type: "TEXT", nullable: true),
+                    UserId = table.Column<string>(type: "TEXT", nullable: true),
                     FirstName = table.Column<string>(type: "TEXT", nullable: true),
                     LastName = table.Column<string>(type: "TEXT", nullable: true),
                     Address = table.Column<string>(type: "TEXT", nullable: true),
@@ -50,6 +50,9 @@ namespace ShopApp.Data.Migrations
                     Phone = table.Column<string>(type: "TEXT", nullable: true),
                     Email = table.Column<string>(type: "TEXT", nullable: true),
                     Note = table.Column<string>(type: "TEXT", nullable: true),
+                    PaymentId = table.Column<string>(type: "TEXT", nullable: true),
+                    ConversationId = table.Column<string>(type: "TEXT", nullable: true),
+                    PaymentType = table.Column<int>(type: "INTEGER", nullable: false),
                     OrderState = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -63,13 +66,14 @@ namespace ShopApp.Data.Migrations
                 {
                     ProductId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     Url = table.Column<string>(type: "TEXT", nullable: true),
                     Price = table.Column<double>(type: "REAL", nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
                     IsApproved = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsHome = table.Column<bool>(type: "INTEGER", nullable: false)
+                    IsHome = table.Column<bool>(type: "INTEGER", nullable: false),
+                    AddedDate = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "getdate()")
                 },
                 constraints: table =>
                 {

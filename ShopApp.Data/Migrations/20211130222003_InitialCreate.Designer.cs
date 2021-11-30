@@ -9,8 +9,8 @@ using ShopApp.Data.Concrete.EfCore;
 namespace ShopApp.Data.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20211129171948_AddingOrdertEntities")]
-    partial class AddingOrdertEntities
+    [Migration("20211130222003_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -85,6 +85,9 @@ namespace ShopApp.Data.Migrations
                     b.Property<string>("City")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("ConversationId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
@@ -106,10 +109,16 @@ namespace ShopApp.Data.Migrations
                     b.Property<int>("OrderState")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("PaymentId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PaymentType")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Phone")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("UserID")
+                    b.Property<string>("UserId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -150,6 +159,11 @@ namespace ShopApp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("AddedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValueSql("getdate()");
+
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
@@ -163,6 +177,8 @@ namespace ShopApp.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<double?>("Price")
