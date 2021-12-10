@@ -7,13 +7,12 @@ using System.Text;
 
 namespace ShopApp.Data.Configuration
 {
-    public class ProductConfiguration : IEntityTypeConfiguration<Product>
+    public class CategoryConfiguration : IEntityTypeConfiguration<Category>
     {
-        public void Configure(EntityTypeBuilder<Product> builder)
+        public void Configure(EntityTypeBuilder<Category> builder)
         {
-            builder.HasKey(m => m.ProductId);
+            builder.HasKey(m => m.CategoryId);
             builder.Property(m => m.Name).IsRequired().HasMaxLength(100);
-            builder.Property(m => m.AddedDate).HasDefaultValueSql("date('now')");
         }
     }
 }

@@ -9,7 +9,7 @@ using ShopApp.Data.Concrete.EfCore;
 namespace ShopApp.Data.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20211130222003_InitialCreate")]
+    [Migration("20211210151239_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,6 +63,8 @@ namespace ShopApp.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Url")
@@ -71,6 +73,38 @@ namespace ShopApp.Data.Migrations
                     b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            Name = "Telefon",
+                            Url = "telefon"
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            Name = "Kompyuter",
+                            Url = "kompyuter"
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            Name = "Elektronika",
+                            Url = "elektronika"
+                        },
+                        new
+                        {
+                            CategoryId = 4,
+                            Name = "Geyim",
+                            Url = "geyim"
+                        },
+                        new
+                        {
+                            CategoryId = 5,
+                            Name = "İkinci Əl",
+                            Url = "ikinci-əl"
+                        });
                 });
 
             modelBuilder.Entity("ShopApp.Entity.Order", b =>
@@ -162,7 +196,7 @@ namespace ShopApp.Data.Migrations
                     b.Property<DateTime>("AddedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValueSql("getdate()");
+                        .HasDefaultValueSql("date('now')");
 
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
@@ -190,6 +224,68 @@ namespace ShopApp.Data.Migrations
                     b.HasKey("ProductId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductId = 1,
+                            AddedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Fine",
+                            ImageUrl = "2.jpg",
+                            IsApproved = true,
+                            IsHome = false,
+                            Name = "Samsung s5",
+                            Price = 20.0,
+                            Url = "samsung-s5"
+                        },
+                        new
+                        {
+                            ProductId = 2,
+                            AddedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Fine",
+                            ImageUrl = "3.jpg",
+                            IsApproved = false,
+                            IsHome = false,
+                            Name = "Samsung s6",
+                            Price = 30.0,
+                            Url = "samsung-s6"
+                        },
+                        new
+                        {
+                            ProductId = 3,
+                            AddedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Fine",
+                            ImageUrl = "4.jpg",
+                            IsApproved = true,
+                            IsHome = false,
+                            Name = "Samsung s7",
+                            Price = 40.0,
+                            Url = "samsung-s7"
+                        },
+                        new
+                        {
+                            ProductId = 4,
+                            AddedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Fine",
+                            ImageUrl = "5.jpg",
+                            IsApproved = false,
+                            IsHome = false,
+                            Name = "Samsung s8",
+                            Price = 50.0,
+                            Url = "samsung-s8"
+                        },
+                        new
+                        {
+                            ProductId = 5,
+                            AddedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Fine",
+                            ImageUrl = "1.jpg",
+                            IsApproved = true,
+                            IsHome = false,
+                            Name = "Samsung s9",
+                            Price = 60.0,
+                            Url = "samsung-s9"
+                        });
                 });
 
             modelBuilder.Entity("ShopApp.Entity.ProductCategory", b =>
@@ -205,6 +301,33 @@ namespace ShopApp.Data.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductCategory");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            CategoryId = 1,
+                            ProductId = 2
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            ProductId = 3
+                        },
+                        new
+                        {
+                            CategoryId = 1,
+                            ProductId = 4
+                        },
+                        new
+                        {
+                            CategoryId = 4,
+                            ProductId = 5
+                        });
                 });
 
             modelBuilder.Entity("ShopApp.Entity.CartItem", b =>

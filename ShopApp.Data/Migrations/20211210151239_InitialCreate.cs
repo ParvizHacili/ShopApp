@@ -26,7 +26,7 @@ namespace ShopApp.Data.Migrations
                 {
                     CategoryId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     Url = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -73,7 +73,7 @@ namespace ShopApp.Data.Migrations
                     ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
                     IsApproved = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsHome = table.Column<bool>(type: "INTEGER", nullable: false),
-                    AddedDate = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "getdate()")
+                    AddedDate = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "date('now')")
                 },
                 constraints: table =>
                 {
@@ -158,6 +158,81 @@ namespace ShopApp.Data.Migrations
                         principalColumn: "ProductId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "CategoryId", "Name", "Url" },
+                values: new object[] { 1, "Telefon", "telefon" });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "CategoryId", "Name", "Url" },
+                values: new object[] { 2, "Kompyuter", "kompyuter" });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "CategoryId", "Name", "Url" },
+                values: new object[] { 3, "Elektronika", "elektronika" });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "CategoryId", "Name", "Url" },
+                values: new object[] { 4, "Geyim", "geyim" });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "CategoryId", "Name", "Url" },
+                values: new object[] { 5, "İkinci Əl", "ikinci-əl" });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "ProductId", "Description", "ImageUrl", "IsApproved", "IsHome", "Name", "Price", "Url" },
+                values: new object[] { 1, "Fine", "2.jpg", true, false, "Samsung s5", 20.0, "samsung-s5" });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "ProductId", "Description", "ImageUrl", "IsApproved", "IsHome", "Name", "Price", "Url" },
+                values: new object[] { 2, "Fine", "3.jpg", false, false, "Samsung s6", 30.0, "samsung-s6" });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "ProductId", "Description", "ImageUrl", "IsApproved", "IsHome", "Name", "Price", "Url" },
+                values: new object[] { 3, "Fine", "4.jpg", true, false, "Samsung s7", 40.0, "samsung-s7" });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "ProductId", "Description", "ImageUrl", "IsApproved", "IsHome", "Name", "Price", "Url" },
+                values: new object[] { 4, "Fine", "5.jpg", false, false, "Samsung s8", 50.0, "samsung-s8" });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "ProductId", "Description", "ImageUrl", "IsApproved", "IsHome", "Name", "Price", "Url" },
+                values: new object[] { 5, "Fine", "1.jpg", true, false, "Samsung s9", 60.0, "samsung-s9" });
+
+            migrationBuilder.InsertData(
+                table: "ProductCategory",
+                columns: new[] { "CategoryId", "ProductId" },
+                values: new object[] { 1, 1 });
+
+            migrationBuilder.InsertData(
+                table: "ProductCategory",
+                columns: new[] { "CategoryId", "ProductId" },
+                values: new object[] { 1, 2 });
+
+            migrationBuilder.InsertData(
+                table: "ProductCategory",
+                columns: new[] { "CategoryId", "ProductId" },
+                values: new object[] { 2, 3 });
+
+            migrationBuilder.InsertData(
+                table: "ProductCategory",
+                columns: new[] { "CategoryId", "ProductId" },
+                values: new object[] { 1, 4 });
+
+            migrationBuilder.InsertData(
+                table: "ProductCategory",
+                columns: new[] { "CategoryId", "ProductId" },
+                values: new object[] { 4, 5 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CartItems_CartId",
