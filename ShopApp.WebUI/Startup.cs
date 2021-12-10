@@ -35,8 +35,13 @@ namespace ShopApp.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationContext>(options => options.UseSqlite(_configuration.GetConnectionString("SqlLiteConnection")));
-            services.AddDbContext<ShopContext>(options => options.UseSqlite(_configuration.GetConnectionString("SqlLiteConnection")));
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(_configuration.GetConnectionString("MsSqlConnection")));
+            services.AddDbContext<ShopContext>(options => options.UseSqlServer(_configuration.GetConnectionString("MsSqlConnection")));
+
+
+            //services.AddDbContext<ApplicationContext>(options => options.UseSqlite(_configuration.GetConnectionString("SqlLiteConnection")));
+            //services.AddDbContext<ShopContext>(options => options.UseSqlite(_configuration.GetConnectionString("SqlLiteConnection")));
+
 
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
 

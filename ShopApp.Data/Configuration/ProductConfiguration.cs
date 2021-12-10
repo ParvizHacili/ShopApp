@@ -13,7 +13,8 @@ namespace ShopApp.Data.Configuration
         {
             builder.HasKey(m => m.ProductId);
             builder.Property(m => m.Name).IsRequired().HasMaxLength(100);
-            builder.Property(m => m.AddedDate).HasDefaultValueSql("date('now')");
+           //builder.Property(m => m.AddedDate).HasDefaultValueSql("date('now')"); //sqllite
+            builder.Property(m => m.AddedDate).HasDefaultValueSql("getdate()");//mssql
         }
     }
 }
