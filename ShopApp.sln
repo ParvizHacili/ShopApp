@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopApp.Entity", "ShopApp.E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopApp.Data", "ShopApp.Data\ShopApp.Data.csproj", "{3E053E03-873B-4018-AF6B-2AADE5599FC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopApp.Business", "ShopApp.Business\ShopApp.Business.csproj", "{2CE47FC4-034E-48E2-96A3-C3E939C8C713}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopApp.Business", "ShopApp.Business\ShopApp.Business.csproj", "{2CE47FC4-034E-48E2-96A3-C3E939C8C713}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopApp.WebAPI", "ShopApp.WebAPI\ShopApp.WebAPI.csproj", "{ADC8F62B-5E18-4839-ABB5-0157D359B0DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{2CE47FC4-034E-48E2-96A3-C3E939C8C713}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CE47FC4-034E-48E2-96A3-C3E939C8C713}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CE47FC4-034E-48E2-96A3-C3E939C8C713}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADC8F62B-5E18-4839-ABB5-0157D359B0DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADC8F62B-5E18-4839-ABB5-0157D359B0DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADC8F62B-5E18-4839-ABB5-0157D359B0DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADC8F62B-5E18-4839-ABB5-0157D359B0DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
