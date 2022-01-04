@@ -200,11 +200,12 @@ namespace ShopApp.WebUI.Controllers
         #endregion
 
         #region Product
-        public IActionResult ProductList()
+        public async Task<IActionResult> ProductList()
         {
+            var products = await _productService.GetAll();
             return View(new ProductListViewModel()
             {
-                Products=_productService.GetAll()
+                Products= products
             });
         }
 
@@ -343,11 +344,12 @@ namespace ShopApp.WebUI.Controllers
         #endregion
 
         #region Category
-        public IActionResult CategoryList()
+        public async Task<IActionResult> CategoryList()
         {
+            var categories = await _categoryService.GetAll();
             return View(new CategoryListViewModel()
             {
-                Categories = _categoryService.GetAll()
+                Categories = categories
             });
         }
 

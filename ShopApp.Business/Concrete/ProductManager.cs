@@ -5,6 +5,7 @@ using ShopApp.Entity;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ShopApp.Business.Concrete
 {
@@ -33,9 +34,9 @@ namespace ShopApp.Business.Concrete
             _unitOfWork.Save();
         }
 
-        public List<Product> GetAll()
+        public async Task<List<Product>> GetAll()
         {
-            return _unitOfWork.Products.GetAll();
+            return await _unitOfWork.Products.GetAll();
         }
 
         public Product GetByID(int id)

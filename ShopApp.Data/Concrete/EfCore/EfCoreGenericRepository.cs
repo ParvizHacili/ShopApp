@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ShopApp.Data.Concrete.EfCore
 {
@@ -26,14 +27,13 @@ namespace ShopApp.Data.Concrete.EfCore
             context.Set<TEntity>().Remove(entity);
         }
 
-        public List<TEntity> GetAll()
+        public async Task<List<TEntity>> GetAll()
         {
-            return context.Set<TEntity>().ToList();
+            return await context.Set<TEntity>().ToListAsync();
         }
 
         public TEntity GetByID(int id)
         {
-
             return context.Set<TEntity>().Find(id);
         }
 

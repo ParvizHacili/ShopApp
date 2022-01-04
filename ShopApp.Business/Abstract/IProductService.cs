@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ShopApp.Business.Abstract
 {
@@ -13,7 +14,7 @@ namespace ShopApp.Business.Abstract
         List<Product> GetHomePageProducts();
         List<Product> GetSearchResult(string searchString);
         List<Product> GetProductsByCategory(string name, int page, int pageSize);
-        List<Product> GetAll();
+        Task<List<Product>> GetAll();
         bool Create(Product entity);
         bool Update(Product entity, int[] categoryIds);
         void Delete(Product entity);

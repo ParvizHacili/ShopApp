@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ShopApp.Business.Abstract
 {
@@ -10,7 +11,7 @@ namespace ShopApp.Business.Abstract
         Category GetById(int id);
         Category GetByIdWithProducts(int categoryId);
         void DeleteFromCategory(int productId, int categoryId);
-        List<Category> GetAll();
+        Task<List<Category>> GetAll();
         void Create(Category entity);
         void Update(Category entity);
         void Delete(Category entity);
