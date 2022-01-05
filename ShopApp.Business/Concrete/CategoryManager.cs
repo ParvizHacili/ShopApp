@@ -22,6 +22,14 @@ namespace ShopApp.Business.Concrete
             _unitOfWork.Save();
         }
 
+        public async Task<Category> CreateAsync(Category entity)
+        {
+            await _unitOfWork.Categories.CreateAsync(entity);
+            await _unitOfWork.SaveAsync();
+
+            return entity;
+        }
+
         public void Delete(Category entity)
         {
             _unitOfWork.Categories.Delete(entity);
@@ -38,9 +46,9 @@ namespace ShopApp.Business.Concrete
             return await _unitOfWork.Categories.GetAll();
         }
 
-        public Category GetById(int id)
+        public async Task<Category> GetById(int id)
         {
-            return _unitOfWork.Categories.GetByID(id);
+            return await _unitOfWork.Categories.GetByID(id);
         }
 
         public Category GetByIdWithProducts(int categoryId)

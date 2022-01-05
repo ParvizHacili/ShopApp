@@ -7,9 +7,10 @@ namespace ShopApp.Data.Abstract
 {
    public interface IRepository<T>
     {
-        T GetByID(int id);
+        Task<T> GetByID(int id);
         Task<List<T>> GetAll();
         void Create(T entity);
+        Task CreateAsync(T entity);
         void Update(T entity);
         void Delete(T entity);
     }

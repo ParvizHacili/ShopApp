@@ -22,6 +22,11 @@ namespace ShopApp.Data.Concrete.EfCore
             context.Set<TEntity>().Add(entity);
         }
 
+        public async Task CreateAsync(TEntity entity)
+        {
+            await context.Set<TEntity>().AddAsync(entity);
+        }
+
         public void Delete(TEntity entity)
         {
             context.Set<TEntity>().Remove(entity);
@@ -32,9 +37,9 @@ namespace ShopApp.Data.Concrete.EfCore
             return await context.Set<TEntity>().ToListAsync();
         }
 
-        public TEntity GetByID(int id)
+        public async Task<TEntity> GetByID(int id)
         {
-            return context.Set<TEntity>().Find(id);
+            return await context.Set<TEntity>().FindAsync(id);
         }
 
         public virtual void Update(TEntity entity)

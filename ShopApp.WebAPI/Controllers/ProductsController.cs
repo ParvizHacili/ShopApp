@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShopApp.Business.Abstract;
+using ShopApp.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,14 +27,22 @@ namespace ShopApp.WebAPI.Controllers
         }
 
        [HttpGet("{id}")]
-       public IActionResult GetProduct(int id)
+       public async Task<IActionResult> GetProduct(int id)
         {
-            var product =  _productService.GetByID(id);
+            var product = await _productService.GetByID(id);
             if(product==null)
             {
                 return NotFound();
             }
             return Ok(product);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProducuct(Product product)
+        {
+            await _productService.CreateAsync(product);
+            return CreatedAtAction(nameof(GetProduct),new { id=product.ProductId}, product);
+        }
+
     }
 }

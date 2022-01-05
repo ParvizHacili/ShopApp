@@ -247,7 +247,7 @@ namespace ShopApp.WebUI.Controllers
         }
 
         [HttpGet]
-        public IActionResult ProductEdit(int? id)
+        public async Task<IActionResult> ProductEdit(int? id)
         {
             if(id==null)
             {
@@ -273,16 +273,16 @@ namespace ShopApp.WebUI.Controllers
                 SelectedCategories = entity.ProductCategories.Select(i => i.Category).ToList()
             };
 
-            ViewBag.Categories = _categoryService.GetAll();
+            ViewBag.Categories = await  _categoryService.GetAll();
             return View(model);
         }
 
         [HttpPost]
-        public async Task< IActionResult> ProductEdit(ProductModel productModel,int[] categoryIds,IFormFile file)
+        public async Task<IActionResult> ProductEdit(ProductModel productModel,int[] categoryIds,IFormFile file)
         {
             if(ModelState.IsValid)
             {
-                var entity = _productService.GetByID(productModel.ProductId);
+                var entity = await _productService.GetByID(productModel.ProductId);
                 if (entity == null)
                 {
                     return NotFound();
@@ -320,13 +320,13 @@ namespace ShopApp.WebUI.Controllers
                     }
                 }              
             }
-            ViewBag.Categories = _categoryService.GetAll();
+            ViewBag.Categories = await _categoryService.GetAll();
             return View(productModel);
         }
         [HttpPost]
-        public IActionResult DeleteProduct(int productId)
+        public async Task<IActionResult> DeleteProduct(int productId)
         {
-            var entity = _productService.GetByID(productId);
+            var entity = await _productService.GetByID(productId);
             if(entity!=null)
             {
                 _productService.Delete(entity);
@@ -408,11 +408,11 @@ namespace ShopApp.WebUI.Controllers
         }
 
         [HttpPost]
-        public IActionResult CategoryEdit(CategoryModel categoryModel)
+        public async Task<IActionResult> CategoryEdit(CategoryModel categoryModel)
         {
             if(ModelState.IsValid)
             {
-                var entity = _categoryService.GetById(categoryModel.CategoryId);
+                var entity = await _categoryService.GetById(categoryModel.CategoryId);
                 if (entity == null)
                 {
                     return NotFound();
@@ -439,9 +439,9 @@ namespace ShopApp.WebUI.Controllers
             return View(categoryModel);
         }
         [HttpPost]
-        public IActionResult DeleteCategory(int categoryId)
+        public async Task<IActionResult> DeleteCategory(int categoryId)
         {
-            var entity = _categoryService.GetById(categoryId);
+            var entity = await _categoryService.GetById(categoryId);
             if (entity != null)
             {
                 _categoryService.Delete(entity);

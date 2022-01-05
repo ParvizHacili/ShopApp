@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ShopApp.Data.Abstract
 {
@@ -11,5 +12,6 @@ namespace ShopApp.Data.Abstract
         ICartRepository Carts { get; }
         IOrderRepository Orders { get; }
         void Save();
+        Task<int> SaveAsync();
     }
 }
