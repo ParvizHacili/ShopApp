@@ -26,11 +26,11 @@ namespace ShopApp.WebAPI.Controllers
             return Ok(products);
         }
 
-       [HttpGet("{id}")]
-       public async Task<IActionResult> GetProduct(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProduct(int id)
         {
             var product = await _productService.GetByID(id);
-            if(product==null)
+            if (product == null)
             {
                 return NotFound();
             }
@@ -38,11 +38,30 @@ namespace ShopApp.WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProducuct(Product product)
+        public async Task<IActionResult> CreateProduct(Product product)
         {
             await _productService.CreateAsync(product);
-            return CreatedAtAction(nameof(GetProduct),new { id=product.ProductId}, product);
+            return CreatedAtAction(nameof(GetProduct), new { id = product.ProductId }, product);
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateProduct(int id,Product entity)
+        {
+            if(id!=entity.ProductId)
+            {
+                return BadRequest();
+            }
+
+            var product = await _productService.GetByID(id);
+
+            if(product==null)
+            {
+                return NotFound();
+            }
+
+            await _productService.UpdateAsync(product, entity);
+
+            return NoContent();
+        }
     }
 }

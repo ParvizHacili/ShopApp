@@ -125,5 +125,20 @@ namespace ShopApp.Business.Concrete
 
             return IsValid;
         }
+
+        public async Task UpdateAsync(Product entityToUpdate, Product entity)
+        {
+            entityToUpdate.Name = entity.Name;
+            entityToUpdate.Price = entity.Price;
+            entityToUpdate.Description = entity.Description;
+            entityToUpdate.ImageUrl = entity.ImageUrl;
+            entityToUpdate.Url = entity.Url;
+            entityToUpdate.IsApproved = entity.IsApproved;
+            entityToUpdate.IsHome = entity.IsHome;
+            entityToUpdate.ProductCategories = entity.ProductCategories;
+
+
+            await _unitOfWork.SaveAsync();
+        }
     }
 }

@@ -17,6 +17,7 @@ namespace ShopApp.Business.Abstract
         Task<List<Product>> GetAll();
         bool Create(Product entity);
         Task<Product> CreateAsync(Product entity);
+        Task UpdateAsync(Product entityToUpdate,Product entity);
         bool Update(Product entity, int[] categoryIds);
         void Delete(Product entity);
         int GetCountByCategory(string category);
