@@ -42,6 +42,14 @@ namespace ShopApp.Business.Concrete
             _unitOfWork.Save();
         }
 
+        public async Task DeleteAsync(Product entity)
+        {
+            _unitOfWork.Products.Delete(entity);
+
+           await _unitOfWork.SaveAsync();
+
+        }
+
         public async Task<List<Product>> GetAll()
         {
             return await _unitOfWork.Products.GetAll();
@@ -136,7 +144,6 @@ namespace ShopApp.Business.Concrete
             entityToUpdate.IsApproved = entity.IsApproved;
             entityToUpdate.IsHome = entity.IsHome;
             entityToUpdate.ProductCategories = entity.ProductCategories;
-
 
             await _unitOfWork.SaveAsync();
         }

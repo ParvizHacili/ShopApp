@@ -20,6 +20,7 @@ namespace ShopApp.Business.Abstract
         Task UpdateAsync(Product entityToUpdate,Product entity);
         bool Update(Product entity, int[] categoryIds);
         void Delete(Product entity);
+        Task DeleteAsync(Product entity);
         int GetCountByCategory(string category);
     }
 }

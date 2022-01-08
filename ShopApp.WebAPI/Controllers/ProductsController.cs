@@ -1,10 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ShopApp.Business.Abstract;
 using ShopApp.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShopApp.WebAPI.Controllers
@@ -60,6 +56,21 @@ namespace ShopApp.WebAPI.Controllers
             }
 
             await _productService.UpdateAsync(product, entity);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            var product = await _productService.GetByID(id);
+
+            if(product==null)
+            {
+                return NotFound();
+            }
+
+            await _productService.DeleteAsync(product);
 
             return NoContent();
         }
