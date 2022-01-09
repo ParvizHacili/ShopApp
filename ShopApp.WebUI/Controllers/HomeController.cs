@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using ShopApp.Business.Abstract;
 using ShopApp.WebUI.Models;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace ShopApp.WebUI.Controllers
 {
@@ -34,6 +36,21 @@ namespace ShopApp.WebUI.Controllers
         public IActionResult About()
         {
             return View();
+        }
+
+        public async Task<IActionResult> GetProductsFromRestApi()
+        {
+            var products = new List<Product>();
+
+            using(var httpClient=new HttpClient())
+            {
+                using(var response= await httpClient.GetAsync("https://localhost:44377/api/products"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    products = JsonConvert.DeserializeObject<List<Product>>(apiResponse);
+                }
+            }
+            return View(products);
         }
 
         public IActionResult Contact()

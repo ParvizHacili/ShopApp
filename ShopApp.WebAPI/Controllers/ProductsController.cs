@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopApp.Business.Abstract;
 using ShopApp.Entity;
+using ShopApp.WebAPI.DTO;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ShopApp.WebAPI.Controllers
@@ -19,25 +21,32 @@ namespace ShopApp.WebAPI.Controllers
         {
             var products = await _productService.GetAll();
 
-            return Ok(products);
+            var productsDTO = new List<ProductDTO>();
+
+            foreach (var p in products)
+            {
+                productsDTO.Add(ProductToDTO(p));
+            }
+
+            return Ok(productsDTO);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProduct(int id)
         {
-            var product = await _productService.GetByID(id);
-            if (product == null)
+            var p = await _productService.GetByID(id);
+            if (p == null)
             {
                 return NotFound();
             }
-            return Ok(product);
+            return Ok(ProductToDTO(p));
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateProduct(Product product)
         {
             await _productService.CreateAsync(product);
-            return CreatedAtAction(nameof(GetProduct), new { id = product.ProductId }, product);
+            return CreatedAtAction(nameof(GetProduct), new { id = product.ProductId }, ProductToDTO(product));
         }
 
         [HttpPut("{id}")]
@@ -65,7 +74,7 @@ namespace ShopApp.WebAPI.Controllers
         {
             var product = await _productService.GetByID(id);
 
-            if(product==null)
+            if (product == null)
             {
                 return NotFound();
             }
@@ -74,5 +83,20 @@ namespace ShopApp.WebAPI.Controllers
 
             return NoContent();
         }
+
+        #region Private Methods
+        private static ProductDTO ProductToDTO(Product p)
+        {
+            return new ProductDTO
+            {
+                ProductId = p.ProductId,
+                Name = p.Name,
+                Url = p.Url,
+                Price = p.Price,
+                ImageUrl = p.ImageUrl,
+                Description = p.Description,
+            };
+        }
+        #endregion
     }
 }
